@@ -1,4 +1,5 @@
 <?php
+use App\Developer;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,3 +15,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('developers', function(){
+		return Developer::orderBy('name', 'asc')->get();
+	});
+
+Route::get('developer/{id}', function($id){
+		$developer = Developer::findOrFail($id);
+		return view('/developer')->with('developer', $developer);
+	});

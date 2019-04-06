@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Developer;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware'=>'api'], function(){
+	
+	//Getting the all of the developers
+	
+	
+	
+	
 });
