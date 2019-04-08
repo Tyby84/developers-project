@@ -1763,6 +1763,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EventBus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../EventBus */ "./resources/js/EventBus.js");
 //
 //
 //
@@ -1770,32 +1771,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      developer: {
-        name: '',
-        position: ''
-      },
-      error: false
+      details: []
     };
   },
+  mounted: function mounted() {
+    var _this = this;
 
-  /*mounted() {
-  	this.fetchDeveloper();
-  },*/
-  methods: {
-    fetchDeveloper: function fetchDeveloper(id) {
-      var _this = this;
-
-      axios.get("api/developer/".concat(id)).then(function (resp) {
-        _this.name = resp.data.name;
-        _this.position = resp.data.position;
-      })["catch"](function (err) {
-        console.log(err);
-        _this.error = true;
-      });
-    }
+    _EventBus__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('sendingDetails', function (item) {
+      console.log(item);
+      _this.details = item;
+    });
   }
 });
 
@@ -1810,6 +1799,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EventBus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../EventBus */ "./resources/js/EventBus.js");
 //
 //
 //
@@ -1828,6 +1818,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1845,6 +1836,9 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchDevList();
   },
   methods: {
+    sendDetail: function sendDetail(elem) {
+      _EventBus__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('sendingDetails', elem);
+    },
     fetchDevList: function fetchDevList() {
       var _this = this;
 
@@ -36928,7 +36922,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h3", [_vm._v("Details of " + _vm._s(_vm.developer.name))])
+    _vm.details ? _c("p", [_vm._v(_vm._s(_vm.details.name))]) : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -36966,13 +36960,26 @@ var render = function() {
         return _c("li", [
           _c("a", { attrs: { href: "developer/" + dev.id } }, [
             _vm._v(_vm._s(dev.name))
-          ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "tn-btn-info",
+              on: {
+                click: function($event) {
+                  return _vm.sendDetail(dev)
+                }
+              }
+            },
+            [_vm._v("Detail")]
+          )
         ])
       }),
       0
     ),
-    _vm._v(" "),
-    _c("div")
+    _vm._v("\n    \t<"),
+    _c("div", [_c("DeveloperDetails")], 1)
   ])
 }
 var staticRenderFns = []
@@ -49118,6 +49125,23 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/EventBus.js":
+/*!**********************************!*\
+  !*** ./resources/js/EventBus.js ***!
+  \**********************************/
+/*! exports provided: EventBus */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventBus", function() { return EventBus; });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+var EventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -49144,7 +49168,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('developers', __webpack_require__(/*! ./components/Developers.vue */ "./resources/js/components/Developers.vue")["default"]);
-Vue.component('developer-detail', __webpack_require__(/*! ./components/DeveloperDetails.vue */ "./resources/js/components/DeveloperDetails.vue")["default"]);
+Vue.component('DeveloperDetails', __webpack_require__(/*! ./components/DeveloperDetails.vue */ "./resources/js/components/DeveloperDetails.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

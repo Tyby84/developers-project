@@ -1,36 +1,25 @@
 <template>
 	<div>
-		<h3>Details of {{ developer.name }}</h3>
+		<p v-if="details">{{details.name}}</p>
 	</div>
 </template>
 
 
 <script>
+	import { EventBus } from '../EventBus';
 	export default{
 		data(){
 			return {
-				developer: {
-					name:'',
-					position: ''
-				},
-				error:false
+				details:[]
 			}
 		},
-		/*mounted() {
-			this.fetchDeveloper();
-		},*/
-		methods: {
-			fetchDeveloper(id) {
-				axios.get(`api/developer/${id}`)
-				.then(resp => {
-					this.name = resp.data.name;
-					this.position = resp.data.position;
-				}).catch(err => {
-					console.log(err);
-					this.error = true;
-				});
-			}
+		mounted(){
+			EventBus.$on('sendingDetails', (item)=>{
+				console.log(item);
+			this.details=item;
+		});
 		}
+		
 	}
 
 </script>

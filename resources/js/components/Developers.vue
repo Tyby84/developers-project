@@ -6,18 +6,20 @@
         	<p v-if="error">There has been an error..</p>
         	<ul>
         		<li v-for="dev in list"><a v-bind:href="'developer/'+dev.id">{{ dev.name }}</a>
-        			
+        			<button class="tn-btn-info" @click="sendDetail(dev)">Detail</button>
         			</li>
         		
         	</ul>
-        	<div>
-        		
+        	<<div>
+        		<DeveloperDetails></DeveloperDetails>
         	</div>
     </div>
 </template>
 
 <script>
+	import { EventBus } from '../EventBus';
     export default {
+		
         data() {
 			return {
 				list:[],
@@ -27,15 +29,19 @@
 					position:''
 				},
 				loading:true,
-				error:false,
-				
+				error:false
 			}
 		},
 		mounted() {
 			this.fetchDevList();
-	
+			
 		},
 		methods: {
+			
+			sendDetail(elem){
+				EventBus.$emit('sendingDetails', elem);
+			},
+			
 			fetchDevList(){
 				axios.get('developers').then(resp => {
 					this.list = resp.data;
@@ -47,7 +53,6 @@
 			});
 			}
 		}
-		
     }
 </script>
 
