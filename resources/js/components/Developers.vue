@@ -1,35 +1,41 @@
 <template>
-    <div>
-      
+    <div class="container">
+      <div class="row">
+       	<div class="col-sm-10 col-md-5">
         	<h3>Developers</h3>
-        	<p v-if="loading">Loading</p>
+        	<div v-if="loading" class="spinner-border text-info"></div>
         	<p v-if="error">There has been an error..</p>
-        	<ul>
-        		<li v-for="dev in list"><a v-bind:href="'developer/'+dev.id">{{ dev.name }}</a>
-        			<button class="tn-btn-info" @click="sendDetail(dev)">Detail</button>
-        			</li>
-        		
+        	<ul class="list-group">
+        		<li class="list-group-item" :key="item.id"
+        		v-for="item in list" @click="sendDetail(item)" 
+        		:class="link ? 'activeItem' : '' ">
+			{{ item.name }}
+			
+		</li>
+        	
         	</ul>
-        	<<div>
+		</div>
+        	<div class="col-sm-10 col-md-5">
         		<DeveloperDetails></DeveloperDetails>
         	</div>
+        </div>
+        
+    <create></create>
     </div>
+    
 </template>
 
 <script>
-	import { EventBus } from '../EventBus';
+		import { EventBus } from '../EventBus';
+
     export default {
 		
         data() {
 			return {
 				list:[],
-				developer: {
-					id:'',
-					name: '',
-					position:''
-				},
 				loading:true,
-				error:false
+				error:false,
+				link:false
 			}
 		},
 		mounted() {
@@ -37,13 +43,13 @@
 			
 		},
 		methods: {
-			
 			sendDetail(elem){
+				
 				EventBus.$emit('sendingDetails', elem);
+				this.link = true;
 			},
-			
 			fetchDevList(){
-				axios.get('developers').then(resp => {
+				axios.get('api/developers').then(resp => {
 					this.list = resp.data;
 					this.loading = false;
 				}).catch(err => {
@@ -55,5 +61,11 @@
 		}
     }
 </script>
+<style scoped>
 
+	.activeItem{
+		color: red;
+	}
+
+</style>
 

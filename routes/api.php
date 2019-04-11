@@ -18,6 +18,9 @@ Route::group(['middleware'=>'api'], function(){
 	//Getting the all of the developers
 	
 	
+	Route::get('developers', 'DeveloperController@get');
+	Route::post('developers', 'DeveloperController@store');
+	Route::delete('developers/{id}', 'DeveloperController@delete');
 	
 	
 });

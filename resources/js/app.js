@@ -22,6 +22,8 @@ window.Vue = require('vue');
 
 Vue.component('developers', require('./components/Developers.vue').default);
 Vue.component('DeveloperDetails', require('./components/DeveloperDetails.vue').default);
+//Vue.component('developer-list', require('./components/DevList.vue').default);
+Vue.component('create', require('./components/CreateDeveloper.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -32,4 +34,7 @@ Vue.component('DeveloperDetails', require('./components/DeveloperDetails.vue').d
 const app = new Vue({
     el: '#app'
 });
+
+
+
 
