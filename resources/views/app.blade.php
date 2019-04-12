@@ -15,9 +15,14 @@
     </head>
     <body>
                 <div id="app">
-                   @yield('content')
+                  <router-link to="/">Home</router-link>
+                  <router-link to="/developers">Developers</router-link>
+                  
+                  <router-view></router-view>
+                   <!--@yield('content')-->
                     
                 </div>
+                
 	<script src="js/app.js"></script>
     </body>
 </html>
