@@ -18,6 +18,9 @@
 
 <script>
 export default {
+	props:[
+		'fetcher'
+	],
 	data(){
 		return {
 			name:'',
@@ -34,8 +37,10 @@ export default {
 				name: this.name,
 				position: this.position
 			}).then(resp => {
+				
 				console.log(resp.data);
 				this.message = 'Sent!';
+				this.fetcher();
 			})
 			.catch(err => console.log(err));
 		}

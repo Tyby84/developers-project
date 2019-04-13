@@ -9,6 +9,10 @@ let routes = [
 	{
 		path: '/developers',
 		component: require('./components/Developers.vue').default
+	},
+	{
+		path: '/developers/:id',
+		component: require('./components/DeveloperDetails.vue').default
 	}
 ];
 

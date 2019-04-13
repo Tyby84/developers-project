@@ -7,16 +7,16 @@
         	<p v-if="error">There has been an error..</p>
         	<ul class="list-group">
         		<li class="list-group-item" :key="item.id"
-        		v-for="item in list" @click="sendDetail(item)" 
-        		:class="link ? 'activeItem' : '' ">
+        		v-for="(item, index) in list" @click="sendDetail(item, index)" 
+        		:class="{'activeIt':index === activeItem }">
 			{{ item.name }}
-			
+			<!--<router-link to="developers/{item.id}"></router-link>-->
 		</li>
         	
         	</ul>
 		</div>
         	<div class="col-sm-10 col-md-5">
-        		<DeveloperDetails></DeveloperDetails>
+        		<DeveloperDetails :fetcher="fetchDevList"></DeveloperDetails>
         	</div>
         </div>
         
@@ -35,18 +35,17 @@
 				list:[],
 				loading:true,
 				error:false,
-				link:false
+				activeItem: -1
 			}
 		},
-		mounted() {
+		created() {
 			this.fetchDevList();
 			
 		},
 		methods: {
-			sendDetail(elem){
-				
+			sendDetail(elem, index){
 				EventBus.$emit('sendingDetails', elem);
-				this.link = true;
+				this.activeItem = index;
 			},
 			fetchDevList(){
 				axios.get('api/developers').then(resp => {
@@ -63,7 +62,7 @@
 </script>
 <style scoped>
 
-	.activeItem{
+	.activeIt{
 		color: red;
 	}
 

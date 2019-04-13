@@ -1782,6 +1782,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['fetcher'],
   data: function data() {
     return {
       name: '',
@@ -1802,6 +1803,8 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (resp) {
         console.log(resp.data);
         _this.message = 'Sent!';
+
+        _this.fetcher();
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -1902,16 +1905,16 @@ __webpack_require__.r(__webpack_exports__);
       list: [],
       loading: true,
       error: false,
-      link: false
+      activeItem: -1
     };
   },
-  mounted: function mounted() {
+  created: function created() {
     this.fetchDevList();
   },
   methods: {
-    sendDetail: function sendDetail(elem) {
+    sendDetail: function sendDetail(elem, index) {
       _EventBus__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('sendingDetails', elem);
-      this.link = true;
+      this.activeItem = index;
     },
     fetchDevList: function fetchDevList() {
       var _this = this;
@@ -6425,7 +6428,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.activeItem[data-v-c5cebbd8]{\n\tcolor: red;\n}\n\n", ""]);
+exports.push([module.i, "\n.activeIt[data-v-c5cebbd8]{\n\tcolor: red;\n}\n\n", ""]);
 
 // exports
 
@@ -37862,20 +37865,20 @@ var render = function() {
           _c(
             "ul",
             { staticClass: "list-group" },
-            _vm._l(_vm.list, function(item) {
+            _vm._l(_vm.list, function(item, index) {
               return _c(
                 "li",
                 {
                   key: item.id,
                   staticClass: "list-group-item",
-                  class: _vm.link ? "activeItem" : "",
+                  class: { activeIt: index === _vm.activeItem },
                   on: {
                     click: function($event) {
-                      return _vm.sendDetail(item)
+                      return _vm.sendDetail(item, index)
                     }
                   }
                 },
-                [_vm._v("\n\t\t\t" + _vm._s(item.name) + "\n\t\t\t\n\t\t")]
+                [_vm._v("\n\t\t\t" + _vm._s(item.name) + "\n\t\t\t")]
               )
             }),
             0
@@ -37885,7 +37888,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "col-sm-10 col-md-5" },
-          [_c("DeveloperDetails")],
+          [_c("DeveloperDetails", { attrs: { fetcher: _vm.fetchDevList } })],
           1
         )
       ]),
@@ -53160,6 +53163,9 @@ var routes = [{
 }, {
   path: '/developers',
   component: __webpack_require__(/*! ./components/Developers.vue */ "./resources/js/components/Developers.vue")["default"]
+}, {
+  path: '/developers/:id',
+  component: __webpack_require__(/*! ./components/DeveloperDetails.vue */ "./resources/js/components/DeveloperDetails.vue")["default"]
 }];
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   routes: routes
