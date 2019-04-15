@@ -40,6 +40,8 @@ export default {
 				
 				console.log(resp.data);
 				this.message = 'Sent!';
+				this.name = '';
+				this.position = '';
 				this.fetcher();
 			})
 			.catch(err => console.log(err));

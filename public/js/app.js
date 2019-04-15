@@ -1803,6 +1803,8 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (resp) {
         console.log(resp.data);
         _this.message = 'Sent!';
+        _this.name = '';
+        _this.position = '';
 
         _this.fetcher();
       })["catch"](function (err) {
@@ -1842,20 +1844,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      details: {}
+      details: {},
+      project: {}
     };
   },
   mounted: function mounted() {
     var _this = this;
 
     _EventBus__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('sendingDetails', function (item) {
-      console.log(_this.details);
       _this.details = item;
+
+      _this.fetchProject();
     });
+  },
+  methods: {
+    fetchProject: function fetchProject() {
+      var _this2 = this;
+
+      axios.get("api/projects/".concat(this.details.id)).then(function (resp) {
+        _this2.project = resp.data;
+        /*console.log('resp.data: ', resp.data);*/
+
+        _this2.project = resp.data;
+      })["catch"](function (err) {
+        console.log(err);
+        _this2.loading = false;
+        _this2.error = true;
+      });
+    }
   }
 });
 
@@ -37823,7 +37845,11 @@ var render = function() {
             ])
           ])
         ])
-      : _c("div", [_c("p", [_vm._v("Chose a developer for more details!")])])
+      : _c("div", [_c("p", [_vm._v("Chose a developer for more details!")])]),
+    _vm._v(" "),
+    _c("p", [_vm._v("project: " + _vm._s(_vm.project.title))]),
+    _vm._v(" "),
+    _c("p", [_vm._v("project: " + _vm._s(_vm.project.description))])
   ])
 }
 var staticRenderFns = []
@@ -37869,7 +37895,7 @@ var render = function() {
               return _c(
                 "li",
                 {
-                  key: item.id,
+                  key: index,
                   staticClass: "list-group-item",
                   class: { activeIt: index === _vm.activeItem },
                   on: {
@@ -37888,12 +37914,12 @@ var render = function() {
         _c(
           "div",
           { staticClass: "col-sm-10 col-md-5" },
-          [_c("DeveloperDetails", { attrs: { fetcher: _vm.fetchDevList } })],
+          [_c("DeveloperDetails")],
           1
         )
       ]),
       _vm._v(" "),
-      _c("create")
+      _c("create", { attrs: { fetcher: _vm.fetchDevList } })
     ],
     1
   )
@@ -52763,6 +52789,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('DeveloperDetails', __webpa
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('create', __webpack_require__(/*! ./components/CreateDeveloper.vue */ "./resources/js/components/CreateDeveloper.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('home', __webpack_require__(/*! ./components/Home.vue */ "./resources/js/components/Home.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('projects', __webpack_require__(/*! ./components/Projects.vue */ "./resources/js/components/Projects.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -53146,6 +53173,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Projects.vue":
+/*!**********************************************!*\
+  !*** ./resources/js/components/Projects.vue ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/components/Projects.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/routes.js":
 /*!********************************!*\
   !*** ./resources/js/routes.js ***!
@@ -53164,8 +53223,8 @@ var routes = [{
   path: '/developers',
   component: __webpack_require__(/*! ./components/Developers.vue */ "./resources/js/components/Developers.vue")["default"]
 }, {
-  path: '/developers/:id',
-  component: __webpack_require__(/*! ./components/DeveloperDetails.vue */ "./resources/js/components/DeveloperDetails.vue")["default"]
+  path: '/projects',
+  component: __webpack_require__(/*! ./components/Projects.vue */ "./resources/js/components/Projects.vue")["default"]
 }];
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   routes: routes

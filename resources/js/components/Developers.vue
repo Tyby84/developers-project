@@ -6,7 +6,7 @@
         	<div v-if="loading" class="spinner-border text-info"></div>
         	<p v-if="error">There has been an error..</p>
         	<ul class="list-group">
-        		<li class="list-group-item" :key="item.id"
+        		<li class="list-group-item" :key="index"
         		v-for="(item, index) in list" @click="sendDetail(item, index)" 
         		:class="{'activeIt':index === activeItem }">
 			{{ item.name }}
@@ -16,11 +16,11 @@
         	</ul>
 		</div>
         	<div class="col-sm-10 col-md-5">
-        		<DeveloperDetails :fetcher="fetchDevList"></DeveloperDetails>
+        		<DeveloperDetails></DeveloperDetails>
         	</div>
         </div>
         
-    <create></create>
+    <create :fetcher="fetchDevList"></create>
     </div>
     
 </template>

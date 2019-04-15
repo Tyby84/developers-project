@@ -11,6 +11,8 @@
 			</div>
 		</div>
 		<div v-else><p>Chose a developer for more details!</p></div>
+		<p>project: {{ project.title }}</p>
+		<p>project: {{ project.description }}</p>
 	</div>
 	
 </template>
@@ -21,14 +23,31 @@
 	export default{
 		data(){
 			return {
-				details:{}
+				details:{},
+				project:{}
 			}
 		},
 		mounted(){
 			EventBus.$on('sendingDetails', (item)=>{
-				console.log(this.details);
 			this.details = item;
+			this.fetchProject();
 		});
+		},
+		
+		methods: {
+			fetchProject(){
+			axios.get(`api/projects/${this.details.id}`)
+			.then(resp => {
+				this.project = resp.data;
+				/*console.log('resp.data: ', resp.data);*/
+				this.project = resp.data;
+				}).catch(err => {
+				
+				console.log(err);
+					this.loading = false;
+					this.error = true;
+			});
+		}
 		}
 		
 	}

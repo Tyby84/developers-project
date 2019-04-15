@@ -19,6 +19,7 @@ Route::group(['middleware'=>'api'], function(){
 	
 	
 	Route::get('developers', 'DeveloperController@get');
+	Route::get('projects/{id}', 'ProjectController@get');
 	Route::post('developers', 'DeveloperController@store');
 	Route::delete('developers/{id}', 'DeveloperController@delete');
 	
