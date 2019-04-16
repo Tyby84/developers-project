@@ -15,12 +15,17 @@
     </head>
     <body>
                 <div id="app">
-                  <router-link to="/">Home</router-link>
-                  <router-link to="/developers">Developers</router-link>
-                  <router-link to="/projects">Projects</router-link>
-                  
-                  <router-view></router-view>
-                   <!--@yield('content')-->
+                  <header class="header">
+			<nav class="main-nav">
+				  <li>
+				  	<router-link to="/" exact>Home</router-link>
+				  </li>
+                  <li>
+                  	<router-link to="/developers">Developers</router-link>
+                  </li>
+			</nav>
+		</header>
+                  	<router-view></router-view>
                     
                 </div>
                 

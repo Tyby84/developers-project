@@ -2,7 +2,7 @@
     <div class="container">
       <div class="row">
        	<div class="col-sm-10 col-md-5">
-        	<h3>Developers</h3>
+        	<h3 class="text-center">Developers</h3>
         	<div v-if="loading" class="spinner-border text-info"></div>
         	<p v-if="error">There has been an error..</p>
         	<ul class="list-group">
@@ -63,7 +63,13 @@
 <style scoped>
 
 	.activeIt{
-		color: red;
+		color: #eee;
+		background-color: #333;
+		padding-left: -.5rem;
+		transition: .5s ease-out;
+	}
+	li{
+		cursor: pointer;
 	}
 
 </style>

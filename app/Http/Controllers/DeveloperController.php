@@ -9,7 +9,7 @@ class DeveloperController extends Controller
 {
     //
 	public function index(){
-		return view('welcome');
+		return view('app');
 	}
 	
 	public function get(Request $request)
