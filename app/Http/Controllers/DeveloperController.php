@@ -20,6 +20,11 @@ class DeveloperController extends Controller
 	
 	public function store(Request $request)
     {
+		$request->validate([
+			'name' => 'required',
+			'position' => 'required'
+		]);
+		
         $developer = Developer::create($request->all());
 
         return response()->json($developer);

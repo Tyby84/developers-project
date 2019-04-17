@@ -10655,6 +10655,101 @@ a.text-dark:focus {
   }
 }
 
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-size: 0.9rem;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: opacity 1s;
+}
+
+.fade-leave {
+  /* opacity is 1 at this stage */
+}
+
+.fade-leave-active {
+  transition: opacity 1s;
+  opacity: 0;
+}
+
+/*Slide animation*/
+
+.slide-enter {
+  /* mivel a @keyframes nel megadtam a kezdo ertekeket ezert az az alap itt: transform: translateY(20px);*/
+}
+
+.slide-enter-active {
+  -webkit-animation: slide-in 1s ease-out forwards;
+          animation: slide-in 1s ease-out forwards;
+  /* marad a pozicioban  */
+}
+
+.slide-leave {
+  /* slide out kezdo pozicio az alapertek */
+}
+
+.slide-leave-active {
+  -webkit-animation: slide-out 1s ease-out forwards;
+          animation: slide-out 1s ease-out forwards;
+}
+
+@-webkit-keyframes slide-in {
+  from {
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+
+  to {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+
+  to {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes slide-out {
+  from {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+
+  to {
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+
+  to {
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+}
+
 .header {
   background-color: #3d55a7;
   color: #eee;

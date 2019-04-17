@@ -11,6 +11,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router';
 import router from './routes';
 
+
 Vue.use(VueRouter);
 
 /**
@@ -28,6 +29,7 @@ Vue.component('developers', require('./components/Developers.vue').default);
 Vue.component('DeveloperDetails', require('./components/DeveloperDetails.vue').default);
 Vue.component('create', require('./components/CreateDeveloper.vue').default);
 Vue.component('home', require('./components/Home.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

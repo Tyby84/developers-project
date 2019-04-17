@@ -1,4 +1,4 @@
-<template>
+ <template>
     <div class="container">
       <div class="row">
        	<div class="col-sm-10 col-md-5">
@@ -7,20 +7,24 @@
         	<p v-if="error">There has been an error..</p>
         	<ul class="list-group">
         		<li class="list-group-item" :key="index"
-        		v-for="(item, index) in list" @click="sendDetail(item, index)" 
+        		v-for="(item, index) in list" 
         		:class="{'activeIt':index === activeItem }">
 			{{ item.name }}
-			<!--<router-link to="developers/{item.id}"></router-link>-->
+			<button class="btn btn-info btn-sm" @click="sendDetail(item, index)">Details</button>
+			<button class="btn btn-danger btn-sm" @click="onDelete(item.id)">Delete</button>
 		</li>
         	
         	</ul>
+        	
 		</div>
         	<div class="col-sm-10 col-md-5">
         		<DeveloperDetails></DeveloperDetails>
         	</div>
         </div>
         
-    <create :fetcher="fetchDevList"></create>
+    <div class="row">
+    	<create :fetcher="fetchDevList"></create>
+    </div>
     </div>
     
 </template>
@@ -35,7 +39,8 @@
 				list:[],
 				loading:true,
 				error:false,
-				activeItem: -1
+				activeItem: -1,
+				message:''
 			}
 		},
 		created() {
@@ -56,21 +61,29 @@
 					this.loading = false;
 					this.error = true;
 			});
-			}
+			},
+			onDelete(id){
+			axios.delete(`api/developers/${id}`)
+			.then(resp => {
+				this.fetchDevList();
+				this.message = 'Developer has been deleted'
+			})
+			.catch(err => {
+				this.message = 'There is an issue..';
+			});
+		}	
 		}
+		
     }
 </script>
 <style scoped>
 
 	.activeIt{
 		color: #eee;
-		background-color: #333;
-		padding-left: -.5rem;
-		transition: .5s ease-out;
+		background-color: #575757;
+		transition: .2s ease-out;
 	}
-	li{
-		cursor: pointer;
-	}
+	
 
 </style>
 

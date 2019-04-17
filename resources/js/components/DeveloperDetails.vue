@@ -1,27 +1,28 @@
 <template>
 	<div class="details">
-		<div class="card" v-if="details.hasOwnProperty('name')">
-			<div class="card-header">
-			<p>The chosen developer is <span>{{details.name}}</span></p>
+		<transition name="fade" appear mode="out-in">
+			<div class="card layout" v-if="details.hasOwnProperty('name')" key="one">
+				
+				<h5>The chosen developer is <span>{{details.name}}</span></h5>
+				
+				<p>{{details.name}}'s current position is {{details.position}}</p>
+				
 			
+				<div v-if="project.hasOwnProperty('title')" key="two">
+				<h5><span>{{details.name}}</span>'s projects</h5>
+				
+					<p> {{ project.title }}</p>
+				
+				
+					<p> {{ project.description }}</p>
+				
+				</div>
+			<div v-else key="three" class="small text-center"><span>{{details.name}}</span> has no project yet..</div>
 			</div>
-			<div class="card-body">
-			<p>{{details.name}}'s current position is {{details.position}}</p>
 			
-			</div>
-
-			<div v-if="project.hasOwnProperty('title')" class="card">
-			<div class="card-header"><h3><span>{{details.name}}</span>'s projects</h3></div>
-			<div class="card-body">
-				<p> {{ project.title }}</p>
-			</div>
-			<div class="card-footer">
-				<p> {{ project.description }}</p>
-			</div>
-		</div>
-		<div v-else class="small"><span>{{details.name}}</span> has no project yet..</div>
-		</div>
-		<div v-else class="lead text-center"><p>Chose a developer for more details!</p></div>
+			<div v-else key="four" class="lead text-center"><p>Chose a developer for more details or create one!</p></div>
+		</transition>
+		
 		
 	</div>
 	
@@ -71,4 +72,10 @@
 	.details {
 		margin-top: 1rem;
 	}
+	.layout{
+		margin: 2.3rem auto 0 auto;
+		padding: 1rem;
+		text-align: center;
+	}
+	
 </style>

@@ -1,0 +1,44 @@
+	.fade-enter{
+		opacity:0;
+	}
+	.fade-enter-active{
+		transition: opacity 1s;
+	}
+	.fade-leave{
+		/* opacity is 1 at this stage */
+	}
+	.fade-leave-active{
+		transition: opacity 1s;
+		opacity: 0;
+	}
+
+/*Slide animation*/
+	.slide-enter{
+		/* mivel a @keyframes nel megadtam a kezdo ertekeket ezert az az alap itt: transform: translateY(20px);*/
+	}
+	.slide-enter-active{
+		animation: slide-in 1s ease-out forwards; /* marad a pozicioban  */
+	}
+	.slide-leave{
+		/* slide out kezdo pozicio az alapertek */
+	}
+	.slide-leave-active{
+		animation: slide-out 1s ease-out forwards;
+	}
+	
+	@keyframes slide-in {
+		from {
+			transform: translateY(20px);
+		}
+		to {
+			transform: translateY(0);
+		}
+	}
+	@keyframes slide-out {
+		from {
+			transform: translateY(0);
+		}
+		to {
+			transform: translateY(20px);
+		}
+	}

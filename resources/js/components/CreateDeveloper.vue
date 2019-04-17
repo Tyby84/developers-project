@@ -1,18 +1,24 @@
 <template>
-	<div class="container">
-		<form method="post" >
-			<div>
-				<label>Name</label>
-				<input type="text" v-model="name">
+	<div>
+		
+		<form method="post" class="form">
+			<div class="form-goup">
+				
+				<input class="form-control" type="text" v-model="name" placeholder="Add a name">
+	</div>
+			<div class="form-goup">	
+				<input class="form-control" type="text" v-model="position" placeholder="Add a position">
 			</div>
 			
-			<div>
-				<label>Position</label>
-				<input type="text" v-model="position">
-			</div>
-			<button type="submit" @click.prevent="onSubmit">Create</button>
+			<button class="btn btn-primary btn-sm mg-top" type="submit" @click.prevent="onSubmit">Create</button>
+			
 		</form>
-		<p>{{message}}</p>
+		<transition name="fade">
+			<div class="mg-top" v-if="message">
+				<p>{{msg}} <button class="btn btn-outline-danger btn-sm" @click="onmessage">Hide</button></p>
+				
+			</div>
+		</transition>
 	</div>
 </template>
 
@@ -25,7 +31,8 @@ export default {
 		return {
 			name:'',
 			position:'',
-			message:''
+			message:false,
+			msg:''
 		}
 	},
 	mounted(){
@@ -39,16 +46,62 @@ export default {
 			}).then(resp => {
 				
 				console.log(resp.data);
-				this.message = 'Sent!';
+				this.message = true;
+				this.msg = 'Developer has been created!';
 				this.name = '';
 				this.position = '';
 				this.fetcher();
 			})
 			.catch(err => console.log(err));
+		},
+		onmessage(){
+			this.message = false;
 		}
 	}
 }
 </script>
-<style>
-
+<style scoped>
+	.form{
+		margin: 1rem 0 0 0.9rem;
+	}
+	.mg-top{
+		margin-top: 1rem
+	}
+	
+	
+	
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
